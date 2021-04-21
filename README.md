@@ -10,11 +10,11 @@ Why choose pidgeotto?
 4. Free under GPLv3 License.
 
 ## Installation
-$ pip intall git+https://gitlab.com/nihar.page/pidgeotto
+$ pip intall git+https://github.com/niharokz/pidgeotto
 
 ## Prerequisites
 By default, pidgeotto will install the below packages from PyPI pip
-''' pyyaml, jinja2, markdown2 '''
+``` pyyaml, jinja2, markdown2 ```
 * PyYAML:	To consume the config file and header of blog posts.
 * jinja2:	Templating engine
 * markdown2:	To convert markdown to HTML
@@ -37,17 +37,21 @@ To build static pages and keep those in the "public" directory.
 
 ## Extra Functionalaties
 1. showInHome tag is present in each note markdown.
-        '''showInHome: True''' will create page which are blog/note post.
-        '''showInHome: False''' will create page which are pages.
+        ``` showInHome: True ``` 
+        will create page which are blog/note post.
+        
+        ``` showInHome: False ``` 
+        will create page which are pages.
 
 2. config.yml is extensible. 
         For example, if you want to add favicon.ico. Keep favicon in the resource folder.
-        '''favicon: resource/favicon.ico''' in config.yml
+        ``` favicon: resource/favicon.ico ``` 
+        in config.yml
         In template, add {{ config.get('favicon') }}.
 
 3. Extra metadata per page.
         If you want to add some metadata to your page, it can be done using the below command on the markdown page.
-        ''' meta : '<link rel="stylesheet" type="text/css" href="/extra.css" /> '''
+        ``` meta : '<link rel="stylesheet" type="text/css" href="/extra.css" /> ```
 
 
 ## Structure
@@ -78,3 +82,10 @@ To build static pages and keep those in the "public" directory.
 
 Below are examples of sites running via pidgeotto.
 1. [nihar.page](https://nihar.page)
+
+
+## TODO
+
+(A) 21-04-2021 Fix rss template
+(A) 21-04-2021 Add Serve functionality
+(B) 21-04-2021 Clean up some clutter coding
