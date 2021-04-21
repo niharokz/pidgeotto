@@ -88,6 +88,8 @@ def buildPidgey():
     # Recreated home path with resource
     if path.exists(home_path):
         rmtree(home_path)
+    print(resource_path)
+    print(home_path)
     copytree(resource_path, home_path)
     
     #Create all pages from content/note
@@ -116,8 +118,11 @@ def buildPidgey():
     #Sort posts based on date in descending order
     posts= sorted(posts, key=lambda post :  post['date'], reverse=True)
     
-    # Other pages are created here
-    create_page(home_template,None,readmd(home_md),"index.html")
-    create_page(home_template,None,readmd(archive_md),"archive.html")
-    create_page(feed_template,None,readmd(home_md),"rss.xml")
-    print("Public directory created containing all static pages")
+    try:
+        # Other pages are created here
+        create_page(home_template,None,readmd(home_md),"index.html")
+        create_page(home_template,None,readmd(archive_md),"archive.html")
+        create_page(feed_template,None,readmd(home_md),"rss.xml")
+        print("Public directory created containing all static pages")
+    except:
+        print("Please fix the template")

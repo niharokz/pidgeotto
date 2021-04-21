@@ -10,7 +10,7 @@ Why choose pidgeotto?
 4. Free under GPLv3 License.
 
 ## Installation
-$ pip intall git+https://github.com/niharokz/pidgeotto
+$ pip install git+https://github.com/niharokz/pidgeotto
 
 ## Prerequisites
 By default, pidgeotto will install the below packages from PyPI pip

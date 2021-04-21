@@ -1,3 +1,6 @@
 pidgeotto.egg-info
 test
 __pycache__
+.pytest_cache
+build
+dist
