@@ -1,24 +1,80 @@
-# NIHARS.COM: BACKEND AND TEMPLATE
+# pidgeotto
 
 ## Description
-This static webpage generator is to source https://nihars.com.
+Yet another static website generator. 
+
+Why choose pidgeotto?
+1. Free of javascript.
+2. Extensible, flexible, forkable.
+3. Minimal and fast.
+4. Free under GPLv3 License.
+
+## Installation
+$ pip intall git+https://gitlab.com/nihar.page/pidgeotto
 
 ## Prerequisites
-''' pip install pyyaml, jinja2, markdown2 '''
+By default, pidgeotto will install the below packages from PyPI pip
+''' pyyaml, jinja2, markdown2 '''
 * PyYAML:	To consume the config file and header of blog posts.
 * jinja2:	Templating engine
 * markdown2:	To convert markdown to HTML
 
-## Structure
-* config.yml:	To configure the title, name, CSS file, js file, and other configurations.
-* resource:	Location to store all CSS, js, image data.
-* content:	All markdown files are stored here.
-* layout:	Layouts for different HTML pages are kept here.
-* nihars.py:	Main file. Programs start from here.
-* gem.py: Main gemini file. Gemini capsules will be created from here.
-
 ## Usage:
-* nihars.py: to publish all files inside a public directory
-* gem.py: to publish all gemini capsules inside capsule directory
-* create_note.py: to create a new post with name post
-* server.py: to creata a local server at 0.0.0.0:8000
+```console
+$ pidgey init project
+```
+To initiate pidgeotto with name "project"
+
+```console
+$ pidgey new pageName
+```
+To create new page/post/note with name "pageName"
+
+```console
+$ pidgey build pageName
+```
+To build static pages and keep those in the "public" directory.
+
+## Extra Functionalaties
+1. showInHome tag is present in each note markdown.
+        '''showInHome: True''' will create page which are blog/note post.
+        '''showInHome: False''' will create page which are pages.
+
+2. config.yml is extensible. 
+        For example, if you want to add favicon.ico. Keep favicon in the resource folder.
+        '''favicon: resource/favicon.ico''' in config.yml
+        In template, add {{ config.get('favicon') }}.
+
+3. Extra metadata per page.
+        If you want to add some metadata to your page, it can be done using the below command on the markdown page.
+        ''' meta : '<link rel="stylesheet" type="text/css" href="/extra.css" /> '''
+
+
+## Structure
+
+    pidgeotto_project
+    ├── public
+    ├── config.yml
+    ├── content
+    │   ├── header.md
+    │   ├── footer.md
+    │   ├── home.md
+    │   ├── archive.md
+    │   └── note
+    │       └── other_pages.md
+    ├── resource
+    └── templates
+        ├── home_template.html
+        ├── note_template.html
+        └── rss_template.xml
+
+* config.yml:	To configure the title, name, CSS file, js file, and other configurations.
+* resource:	Location to store all CSS, js, image data and other static content.
+* content:	All markdown files are stored here.
+* template:	Layouts for different HTML pages are kept here.
+* public: All generated static files. It can be changed in config.yml
+
+## Example
+
+Below are examples of sites running via pidgeotto.
+1. [nihar.page](https://nihar.page)
