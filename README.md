@@ -7,7 +7,7 @@ Why choose pidgeotto?
 1. Free of javascript.
 2. Extensible, flexible, forkable.
 3. Minimal and fast.
-4. Free under GPLv3 License.
+4. Free under MIT License.
 
 ## Installation
 ``` pip install pidgeotto ```
@@ -88,6 +88,14 @@ Below are examples of sites running via pidgeotto.
 
 ## TODO
 
-(A) 21-04-2021 Fix rss template
-(A) 21-04-2021 Add Serve functionality
-(B) 21-04-2021 Clean up some clutter coding
+* (A) 24-04-2021 Add Serve functionality
+* (B) 24-04-2021 Clean up some clutter coding
+
+## Update
+
+### 0.0.3
+
+* Removed archived page
+* MIT Licensed
+* showInHome only True or False
+* RSS Template fixed

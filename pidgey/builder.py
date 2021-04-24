@@ -28,11 +28,7 @@ def buildPidgey():
         post_path =  home_path
         if filename=="index.html":
             post_file = filename
-            posts_list = posts[0:no_of_post_home]
-            nextpage = "archive.html" if (len(posts)>no_of_post_home) else ""
-        elif filename=="archive.html":
-            post_file = filename
-            posts_list = posts[no_of_post_home:]
+            posts_list = posts
         elif filename.endswith(".xml") :
             post_file = filename
             posts_list = posts
@@ -48,8 +44,9 @@ def buildPidgey():
             post_path = path.join(home_path)
             post_file = post_data[2].replace('.md','.html')
             post_data = post_data[1]
-            
+
             makedirs(post_path,exist_ok=True)
+
         with open(path.join(post_path,post_file),'w') as output_file:
             output_file.write(
                 post_template.render(
@@ -88,8 +85,6 @@ def buildPidgey():
     # Recreated home path with resource
     if path.exists(home_path):
         rmtree(home_path)
-    print(resource_path)
-    print(home_path)
     copytree(resource_path, home_path)
     
     #Create all pages from content/note
@@ -118,11 +113,6 @@ def buildPidgey():
     #Sort posts based on date in descending order
     posts= sorted(posts, key=lambda post :  post['date'], reverse=True)
     
-    try:
-        # Other pages are created here
-        create_page(home_template,None,readmd(home_md),"index.html")
-        create_page(home_template,None,readmd(archive_md),"archive.html")
-        create_page(feed_template,None,readmd(home_md),"rss.xml")
-        print("Public directory created containing all static pages")
-    except:
-        print("Please fix the template")
+    # Other pages are created here
+    create_page(home_template,None,readmd(home_md),"index.html")
+    create_page(feed_template,None,readmd(home_md),"rss.xml")

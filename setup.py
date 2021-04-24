@@ -13,7 +13,7 @@ setup(
         author='nihar',
         author_email='<mail@nihars.com>',
         url='https://github.com/niharokz/pidgeotto',
-        license='GPLv3+',
+        license='MIT',
         packages=['pidgey'],
         install_requires=[
             'markdown2', 'Jinja2', 'pyyaml',

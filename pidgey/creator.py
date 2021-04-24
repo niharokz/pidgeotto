@@ -31,8 +31,6 @@ resource_path : static # All css, js, image location
 home_md : content/home.md # Homepage content
 header_md : content/header.md # Header content
 footer_md : content/footer.md # Footer content
-no_of_post_home : 10 # No of note in homepage
-archive_md : content/archive.md # Archive page content
 
 # Optional Configuration, Add your own configs here
 site-title : Demo Pidgeotto
@@ -68,7 +66,7 @@ def createTemplates(pidgeyName):
 <section>
 {{article}}
 <ul>
-{% for post in posts %}{% if post.showInHome is undefined%}
+{% for post in posts %}{% if (post.showInHome is undefined) or post.showInHome %}
 <li>{{ post.date.strftime('%d %m %Y') }} ; <a href="{{ post.url }}">{% filter lower %} {{ post.title }} {% endfilter %}</a></li>
 {% endif %}{% endfor %}
 {% if nextpage %} <a href="{{ nextpage }}">Older Notes >> </a> {% endif %}
@@ -108,7 +106,7 @@ def createTemplates(pidgeyName):
 <article>
 {{ article }}
 {% if date %} 
-<p># Posted on <time>{{ date.strftime('%d %b %Y') }}.</time></p>
+<p># Last updated on <time>{{ date.strftime('%d %b %Y') }}.</time></p>
 {% endif %}
 </article>
 <footer>
@@ -129,38 +127,37 @@ def createTemplates(pidgeyName):
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:atom="http://www.w3.org/2005/Atom"
 	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
-    xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
+ xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
 
-    <channel>
-        <title>{{title}}</title>
-        <atom:link href="{{ url }}" rel="self" type="application/rss+xml" />
-        <link>{{ url }}</link>
-	    <description>{{ subtitle }}</description>
-        <lastBuildDate>{{ last_date.strftime('%a, %d %b %Y %H:%M:%S %z') }}</lastBuildDate>
-	    <language>en-US</language>
-	    <sy:updatePeriod>weekly</sy:updatePeriod>
-	    <sy:updateFrequency>1</sy:updateFrequency>
-        
-        <image>
-            <url>{{url}}{{ avatar }}</url>
-	        <title>{{ title }}</title>
-            <link>{{ url }}</link>
-	        <width>32</width>
-	        <height>32</height>
-        </image>
+ <channel>
+  <title>{{title}}</title>
+  <atom:link href="{{ url }}" rel="self" type="application/rss+xml" />
+  <link>{{ url }}</link>
+  <description>{{ subtitle }}</description>
+  <lastBuildDate>{{ last_date.strftime('%a, %d %b %Y %H:%M:%S GMT') }}</lastBuildDate>
 
-		{% for post in posts %}{% if post.showInHome is undefined%}
-        <item>
-            <title>{{ post.title }}</title>
-            <link>{{ url}}{{ post.url }}</link>
-            <pubDate>{{ post.date.strftime('%a, %d %b %Y %H:%M:%S %z') }}</pubDate>
-            <guid isPermaLink="false">{{ url }}{{ post.url }}</guid>
+  <language>en-IN</language>
+  <sy:updatePeriod>weekly</sy:updatePeriod>
+  <sy:updateFrequency>1</sy:updateFrequency>
+
+  <image>
+   <url>{{ config.get('url') }}/{{ config.get('pht') }}</url>
+   <title>{{ title }}</title>
+   <link>{{ url }}</link>
+   <width>32</width>
+   <height>32</height>
+  </image>
+
+  {% for post in posts %}{% if (post.showInHome is undefined) or post.showInHome %}
+  <item>
+   <title>{{ post.title }}</title>
+   <link>{{ config.get('url') }}{{ post.url }}</link>
+   <pubDate>{{ post.date.strftime('%a, %d %b %Y %H:%M:%S %Z GMT') }}</pubDate>
+   <guid isPermaLink="false">{{ config.get('url') }}{{ post.url }}</guid>
 			<description><![CDATA[{{ post.subtitle }} - {{ post.note }} ]]></description>
-        </item>
-		{% endif %}{% endfor %}
-
-    </channel>
-</rss>
+  </item>
+  {% endif %}{% endfor %}
+ </channel>
             """)
         f.write(conf_data)
         print('rss template created.')
@@ -199,13 +196,6 @@ def createContent(pidgeyName):
         f.write(conf_data)
         print('footer created.')
     
-    with open(path.join(pidgeyName,'content','archive.md'),'w') as f:
-        conf_data = (
-            """# Archives
-        """)
-        f.write(conf_data)
-        print('archive created.')
-
     with open(path.join(pidgeyName,'content','note','blog1.md'),'w') as f:
         conf_data = (
             """---
@@ -264,8 +254,8 @@ def createNote(noteName, showInHome=True):
     with open(path.join('content','note',noteName),'w') as f:
         conf_data = (
         """---
-title : "Sample Blog."
-subtitle : "Sample subtitle"
+title : "Title"
+subtitle : "Subtitle"
 showInHome : {s}
 date : {t}
 ---
