@@ -8,7 +8,7 @@
 #       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
 #       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
 #       DRAFTED BY [https://nihar.page] ON 18-04-2021.
-#       SOURCE [creator.py] LAST MODIFIED ON 20-04-2021.
+#       SOURCE [creator.py] LAST MODIFIED ON 08-05-2021.
 #
 
 
@@ -251,15 +251,20 @@ def createPidgey(pidgeyName):
         print("This can be due to \n\t1. Pidgey already exists.\n\t2. Memory issue.\n\t3. Invalid input.\n\t4. If none of these, report to developer.")
 
 def createNote(noteName, showInHome=True):
-    with open(path.join('content','note',noteName),'w') as f:
-        conf_data = (
-        """---
+    try:
+        if not noteName.lower().endswith('.md'):
+            noteName+='.md'
+        with open(path.join('content','note',noteName),'w') as f:
+            conf_data = (
+            """---
 title : "Title"
 subtitle : "Subtitle"
 showInHome : {s}
 date : {t}
 ---
-        """).format(t=datetime.now().strftime("%Y-%m-%d"), s=showInHome)
-        f.write(conf_data)
-        print(noteName+" is created at content/note/"+noteName )
-
+            """).format(t=datetime.now().strftime("%Y-%m-%d"), s=showInHome)
+            f.write(conf_data)
+            print(noteName+" is created at content/note/"+noteName )
+    except:
+        print("while generating page "+noteName+", some issue occured.")
+        print("This can be due to \n\t1. Not a pidgey directory. \n\t2. Invalid filename")

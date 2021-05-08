@@ -88,14 +88,12 @@ Below are examples of sites running via pidgeotto.
 
 ## TODO
 
-* (A) 24-04-2021 Add Serve functionality
-* (B) 24-04-2021 Clean up some clutter coding
+* (A) 08-05-2021 Clean up some clutter coding
 
 ## Update
 
 ### 0.0.3
 
-* Removed archived page
-* MIT Licensed
-* showInHome only True or False
-* RSS Template fixed
+* Server Functionality added
+* Automatic .md extension
+* Error/Exception handled

@@ -8,7 +8,7 @@
 #       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
 #       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
 #       DRAFTED BY [https://nihar.page] ON 10-04-2021.
-#       SOURCE [builder.py] LAST MODIFIED ON 20-04-2021.
+#       SOURCE [builder.py] LAST MODIFIED ON 08-05-2021.
 #
 
 # External imports
@@ -77,42 +77,49 @@ def buildPidgey():
 
 
     # PROGRAM STARTS HERE
-    with open('config.yml') as conf:
-        config = safe_load(conf.read())
-        for key,val in config.items():
-            globals()[key] = val
+    try:
+        with open('config.yml') as conf:
+            config = safe_load(conf.read())
+            for key,val in config.items():
+                globals()[key] = val
 
-    # Recreated home path with resource
-    if path.exists(home_path):
-        rmtree(home_path)
-    copytree(resource_path, home_path)
-    
-    #Create all pages from content/note
-    posts = []
-    for note in glob(path.join(content_path,"note","*.md")):
-        yaml_lines, ym, md = [],'',''
-        with open(note) as infile:
-            for s in infile:
-                if s.startswith('---'):
-                    for s in infile:
-                        if s.startswith('---'):
-                            break;
-                        else:
-                            yaml_lines.append(s)
-                    ym = ''.join(yaml_lines)
-                    md = ''.join(infile)
-                    break;
-        post_detail=safe_load(ym)
-        if (post_detail is not None):
-            post_url = create_page(note_template,post_detail,md,note)
-            ymd = post_detail
-            ymd.update({'url' : '/'+post_url})
-            ymd.update({'note' : markdown(md)})
-            posts += [ymd]
-    
-    #Sort posts based on date in descending order
-    posts= sorted(posts, key=lambda post :  post['date'], reverse=True)
-    
-    # Other pages are created here
-    create_page(home_template,None,readmd(home_md),"index.html")
-    create_page(feed_template,None,readmd(home_md),"rss.xml")
+        # Recreated home path with resource
+        if path.exists(home_path):
+            rmtree(home_path)
+        copytree(resource_path, home_path)
+        
+        #Create all pages from content/note
+        posts = []
+        for note in glob(path.join(content_path,"note","*.md")):
+            yaml_lines, ym, md = [],'',''
+            with open(note) as infile:
+                for s in infile:
+                    if s.startswith('---'):
+                        for s in infile:
+                            if s.startswith('---'):
+                                break;
+                            else:
+                                yaml_lines.append(s)
+                        ym = ''.join(yaml_lines)
+                        md = ''.join(infile)
+                        break;
+            post_detail=safe_load(ym)
+            if (post_detail is not None):
+                post_url = create_page(note_template,post_detail,md,note)
+                ymd = post_detail
+                ymd.update({'url' : '/'+post_url})
+                ymd.update({'note' : markdown(md)})
+                posts += [ymd]
+        
+        #Sort posts based on date in descending order
+        posts= sorted(posts, key=lambda post :  post['date'], reverse=True)
+        
+        # Other pages are created here
+        create_page(home_template,None,readmd(home_md),"index.html")
+        create_page(feed_template,None,readmd(home_md),"rss.xml")
+
+    except:
+        print("while building pidgey, some issue occured.")
+        print("This can be due to \n\t1. Not a pidgey directory. \n\t2. Unknown file structure")
+
+

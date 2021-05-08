@@ -12,7 +12,7 @@
 #
 
 # External imports
-from pidgey import creator,builder,__version__
+from pidgey import creator,builder,server,__version__
 from argparse import ArgumentParser
 
     
@@ -23,6 +23,7 @@ def main():
     parser_init = subparsers.add_parser('init', help='start new pidgeotto').add_argument("name")
     parser_new = subparsers.add_parser('new', help='create new note/post/page').add_argument("name")
     parser_build = subparsers.add_parser('build', help='build the pidgeotto')
+    parser_serve = subparsers.add_parser('serve', help='serve the pidgeotto')
     args = parser.parse_args()
     if args.type == "init" and args.name:
         creator.createPidgey(args.name)
@@ -30,5 +31,7 @@ def main():
         creator.createNote(args.name)
     elif args.type == 'build':
         builder.buildPidgey()
+    elif args.type == 'serve':
+        server.server()
     else: 
         parser.print_help()
