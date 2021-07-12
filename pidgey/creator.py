@@ -21,7 +21,7 @@ def createConfig(pidgeyName):
         conf_data = (
             """# Mandatory Configuration
 title : Demo pidgeotto website # Title of website
-url : yourdomain.tld    # Title of the url website
+url : yourdomain.tld    # Title of the url website Changed the title again demo
 note_template : template/note_template.html   # Template of note page
 home_template : template/home_template.html   # Template of home page
 feed_template : template/feed_template.xml   # Template of feed/rss page
