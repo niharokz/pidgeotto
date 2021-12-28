@@ -121,13 +121,7 @@ def createTemplates(pidgeyName):
     with open(path.join(pidgeyName,'template','feed_template.xml'),'w') as f:
         conf_data = (
             """<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0"
-	xmlns:content="http://purl.org/rss/1.0/modules/content/"
-	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
-	xmlns:dc="http://purl.org/dc/elements/1.1/"
-	xmlns:atom="http://www.w3.org/2005/Atom"
-	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
- xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
+<rss version="2.0">
 
  <channel>
   <title>{{title}}</title>
@@ -135,10 +129,7 @@ def createTemplates(pidgeyName):
   <link>{{ url }}</link>
   <description>{{ subtitle }}</description>
   <lastBuildDate>{{ last_date.strftime('%a, %d %b %Y %H:%M:%S GMT') }}</lastBuildDate>
-
   <language>en-IN</language>
-  <sy:updatePeriod>weekly</sy:updatePeriod>
-  <sy:updateFrequency>1</sy:updateFrequency>
 
   <image>
    <url>{{ config.get('url') }}/{{ config.get('pht') }}</url>
@@ -152,7 +143,7 @@ def createTemplates(pidgeyName):
   <item>
    <title>{{ post.title }}</title>
    <link>{{ config.get('url') }}{{ post.url }}</link>
-   <pubDate>{{ post.date.strftime('%a, %d %b %Y %H:%M:%S %Z GMT') }}</pubDate>
+   <pubDate>{{ post.date.strftime('%a, %d %b %Y %H:%M:%S GMT') }}</pubDate>
    <guid isPermaLink="false">{{ config.get('url') }}{{ post.url }}</guid>
 			<description><![CDATA[{{ post.subtitle }} - {{ post.note }} ]]></description>
   </item>
