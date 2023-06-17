@@ -1,64 +1,108 @@
-# pidgeotto
+<div align="center">
+<h1>
+    <a name="readme-top"></a>
+    <img src="./assets/visuals/proj_logo.png" style="background-color:white" width="42px">
+    <b> Rupantar </b>
+    <p style="font-size: medium">No-frills website generation, powered by Python</p>
+</h1>
 
-## Description
-Yet another static website generator. 
+<div align="center">
 
-Why choose pidgeotto?
-1. Free of javascript.
-2. Extensible, flexible, forkable.
-3. Minimal and fast.
-4. Free under MIT License.
+[![GitHub issues](https://img.shields.io/github/issues-raw/bhodrolok/rupantar?color=blue&style=plastic)](https://github.com/Bhodrolok/rupantar/issues)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/bhodrolok/rupantar)](https://github.com/Bhodrolok/rupantar/issues?q=is%3Aissue+is%3Aclosed)
+[![Python Style Guide](https://img.shields.io/badge/style%20guide-Google-yellow.svg?style=flat&logo=python&logoColor=white)](https://google.github.io/styleguide/pyguide.html)
+[![Pull Requests](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat&logo=cachet&logoColor=red)](https://github.com/Bhodrolok/rupantar/pulls)
 
-## Installation
-``` pip install pidgeotto ```
+<!--
+<p>Documentation available<a href="https://github.com/Bhodrolok/JobAppTrackr/tree/docs" target="_blank"> here </a></p>
+-->
 
-$ pip install git+https://github.com/niharokz/pidgeotto
+</div>
 
-## Prerequisites
-By default, pidgeotto will install the below packages from PyPI pip
-``` pyyaml, jinja2, markdown2 ```
-* PyYAML:	To consume the config file and header of blog posts.
-* jinja2:	Templating engine
-* markdown2:	To convert markdown to HTML
+<h3> <a href="http://ipa-reader.xyz/?text=%C9%BEu%CB%90p%C9%91n%CB%88t%C9%94%C9%BE&voice=Raveena"> /ɾuːpɑnˈtɔɾ/ </a> (Bengali)  </h3>
+<h4> transformation</h4>
 
-## Usage:
+
+<!--
+<h3> Built using </h3>
+
+[![react](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://reactjs.org/)
+[![.net](https://img.shields.io/badge/--blue?style=for-the-badge&logo=.net&logoColor=white)](https://protonmail.com)
+
+-->
+</div>
+
+---
+
+<details>
+  <summary>Table of Contents 🚩</summary>
+  <ol>
+    <li><a href="#description">Description</a></li>
+    <li><a href="#install">Installation</a></li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#structure">Project Structure</a></li>
+    <!--<li><a href="#features">Features</a></li> 
+    <li><a href="#shots">Screenshots</a></li>-->
+    <li><a href="#extra">Configuration</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+  </ol>
+</details>
+
+---
+
+<h2 id="description"> Description :ear_of_rice: </h2>
+
+Fork of <a href="https://github.com/niharokz/pidgeotto" target="_blank">pidgeotto</a>
+
+Rupantar is a command-line tool that enables quick generation of simple, minimally themed, static websites with extensive support for customizations.  
+
+<p align="right">(<a href="#readme-top">back to top :arrow_up: </a>)</p>
+
+<h2 id="install"> Installation :coconut: </h2>
+
+- Ensure [Python](https://www.python.org/downloads/) is installed locally.
+<!-- NB: Any major differences b/w Windows and MacOS and GNULinux, mention here-->
+
+Rupantar has the following dependencies:
+
+- <a href="https://pypi.org/project/PyYAML/" target="_blank">PyYAML</a>:  Reading config and setting page metadata
+- <a href="https://pypi.org/project/toml/" target="_blank">TOML</a>:  Reading data for page contents
+- <a href="https://pypi.org/project/Jinja2/" target="_blank">jinja2</a>:	Templating engine used to render the HTML/XML pages
+- <a href="https://pypi.org/project/markdown2/" target="_blank">markdown2</a>:	Reading Markdown files
+
+These packages can be installed either by: 
+1. Cloning this [repo](https://github.com/Bhodrolok/rupantar.git) and running: `python setup.py install` in the `rupantar/` directory, or by
+2. Running: `pip install PyYAML TOML jinja2 markdown2`
+
+<p align="right">(<a href="#readme-top">back to top :arrow_up: </a>)</p>
+
+<h2 id="usage"> Usage :crab: </h2>
+
+To initiate a project:
+
 ```console
 $ pidgey init project
 ```
-To initiate pidgeotto with name "project"
+
+To create a new page:
 
 ```console
 $ pidgey new pageName
 ```
-To create new page/post/note with name "pageName"
+
+To build the static pages:
 
 ```console
 $ pidgey build pageName
 ```
-To build static pages and keep those in the "public" directory.
 
-## Extra Functionalaties
-1. showInHome tag is present in each note markdown.
-        ``` showInHome: True ``` 
-        will create page which are blog/note post.
-        
-        ``` showInHome: False ``` 
-        will create page which are pages.
-
-2. config.yml is extensible. 
-        For example, if you want to add favicon.ico. Keep favicon in the resource folder.
-        ``` favicon: resource/favicon.ico ``` 
-        in config.yml
-        In template, add {{ config.get('favicon') }}.
-
-3. Extra metadata per page.
-        If you want to add some metadata to your page, it can be done using the below command on the markdown page.
-        ``` meta : '<link rel="stylesheet" type="text/css" href="/extra.css" /> ```
+<p align="right">(<a href="#readme-top">back to top :arrow_up: </a>)</p>
 
 
-## Structure
+<h2 id="structure"> Project Structure :fork_and_knife: </h2>
 
-    pidgeotto_project
+pidgeotto_project
     ├── public
     ├── config.yml
     ├── content
@@ -80,20 +124,27 @@ To build static pages and keep those in the "public" directory.
 * template:	Layouts for different HTML pages are kept here.
 * public: All generated static files. It can be changed in config.yml
 
-## Example
-
-Below are examples of sites running via pidgeotto.
-1. [nihar.page](https://nihar.page)
+<p align="right">(<a href="#readme-top">back to top :arrow_up: </a>)</p>
 
 
-## TODO
+<h2 id="extra"> Configuration :plate_with_cutlery:</h2>
 
-* (A) 08-05-2021 Clean up some clutter coding
+<p>TODO</p>
 
-## Update
+<p align="right">(<a href="#readme-top">back to top :arrow_up: </a>)</p>
 
-### 0.0.3
 
-* Server Functionality added
-* Automatic .md extension
-* Error/Exception handled
+<h2 id="contributing">Contributing :scroll: </h2>
+
+This is an open source project. Suggestions, bug fixes, documentation improvements, translations, etc. are welcome through Pull Requests and Issues.
+
+<p align="right">(<a href="#readme-top">back to top :arrow_up: </a>)</p>
+
+
+<h2 id="license">License :bookmark:</h2>
+
+This project is licensed under the [MIT License](./LICENSE).
+
+<p align="right">(<a href="#readme-top">back to top :arrow_up: </a>)</p>
+
+
