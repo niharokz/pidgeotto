@@ -1,6 +1,6 @@
-pidgeotto.egg-info
-test
 __pycache__
 .pytest_cache
+test
 build
 dist
+logs

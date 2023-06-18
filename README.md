@@ -102,6 +102,7 @@ $ pidgey build pageName
 
 <h2 id="structure"> Project Structure :fork_and_knife: </h2>
 
+```
 pidgeotto_project
     ├── public
     ├── config.yml
@@ -117,6 +118,7 @@ pidgeotto_project
         ├── home_template.html
         ├── note_template.html
         └── rss_template.xml
+```
 
 * config.yml:	To configure the title, name, CSS file, js file, and other configurations.
 * resource:	Location to store all CSS, js, image data and other static content.
