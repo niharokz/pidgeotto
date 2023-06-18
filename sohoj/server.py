@@ -1,16 +1,3 @@
-#!/bin/python3
-
-#
-#       ███╗   ██╗██╗██╗  ██╗ █████╗ ██████╗ ███████╗
-#       ████╗  ██║██║██║  ██║██╔══██╗██╔══██╗██╔════╝
-#       ██╔██╗ ██║██║███████║███████║██████╔╝███████╗
-#       ██║╚██╗██║██║██╔══██║██╔══██║██╔══██╗╚════██║
-#       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
-#       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
-#       DRAFTED BY [https://nihar.page] ON 08-05-2021.
-#       SOURCE [serve.py] LAST MODIFIED ON 08-05-2021.
-#
-
 from http.server import SimpleHTTPRequestHandler
 from socketserver import TCPServer
 from os import path, chdir

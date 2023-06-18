@@ -1,18 +1,4 @@
-#!/bin/python
-
-#   
-#       ███╗   ██╗██╗██╗  ██╗ █████╗ ██████╗ ███████╗
-#       ████╗  ██║██║██║  ██║██╔══██╗██╔══██╗██╔════╝
-#       ██╔██╗ ██║██║███████║███████║██████╔╝███████╗
-#       ██║╚██╗██║██║██╔══██║██╔══██║██╔══██╗╚════██║
-#       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
-#       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
-#       DRAFTED BY [https://nihar.page] ON 10-04-2021.
-#       SOURCE [builder.py] LAST MODIFIED ON 08-05-2021.
-#
-
-# External imports
-from shutil import copytree, rmtree, copy
+from shutil import copytree, rmtree
 from os import path, makedirs
 from glob import glob
 from yaml import safe_load
