@@ -7,8 +7,8 @@
 #       ██║╚██╗██║██║██╔══██║██╔══██║██╔══██╗╚════██║
 #       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
 #       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
-#       DRAFTED BY [https://nihar.page] ON 08-05-2021.
-#       SOURCE [serve.py] LAST MODIFIED ON 08-05-2021.
+#       DRAFTED BY [https://nih.ar] ON 08-05-2021.
+#       SOURCE [serve.py] LAST MODIFIED ON 08-06-2023.
 #
 
 from http.server import SimpleHTTPRequestHandler

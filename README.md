@@ -83,7 +83,7 @@ To build static pages and keep those in the "public" directory.
 ## Example
 
 Below are examples of sites running via pidgeotto.
-1. [nihar.page](https://nihar.page)
+1. [nih.ar](https://nih.ar)
 
 
 ## TODO
@@ -97,3 +97,11 @@ Below are examples of sites running via pidgeotto.
 * Server Functionality added
 * Automatic .md extension
 * Error/Exception handled
+
+### 0.0.4
+
+* Cleanup
+
+### 0.0.5
+
+* Windows support added

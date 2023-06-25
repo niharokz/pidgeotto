@@ -7,13 +7,13 @@
 #       ██║╚██╗██║██║██╔══██║██╔══██║██╔══██╗╚════██║
 #       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
 #       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
-#       DRAFTED BY [https://nihar.page] ON 10-04-2021.
-#       SOURCE [builder.py] LAST MODIFIED ON 08-05-2021.
+#       DRAFTED BY [https://nih.ar] ON 10-04-2021.
+#       SOURCE [builder.py] LAST MODIFIED ON 25-06-2023.
 #
 
 # External imports
 from shutil import copytree, rmtree, copy
-from os import path, makedirs
+from os import path, makedirs, sep
 from glob import glob
 from yaml import safe_load
 from jinja2 import Environment, FileSystemLoader
@@ -40,14 +40,13 @@ def buildPidgey():
             post_subtitle = post_detail.get("subtitle")
             post_date = post_detail.get("date")
             post_meta = post_detail.get("meta")
-            post_data = filename.split('/')
+            post_data = filename.split(sep)
             post_path = path.join(home_path)
             post_file = post_data[2].replace('.md','.html')
             post_data = post_data[1]
-
             makedirs(post_path,exist_ok=True)
 
-        with open(path.join(post_path,post_file),'w') as output_file:
+        with open(path.join(post_path,post_file),'w',encoding='utf8', errors='ignore') as output_file:
             output_file.write(
                 post_template.render(
                     title = title,
@@ -72,13 +71,13 @@ def buildPidgey():
     
     # Markdown file to string
     def readmd(md):
-        with open(md,'r') as data:
+        with open(md,'r',encoding='utf8', errors='ignore') as data:
             return data.read()
 
 
     # PROGRAM STARTS HERE
     try:
-        with open('config.yml') as conf:
+        with open('config.yml',encoding='utf8', errors='ignore') as conf:
             config = safe_load(conf.read())
             for key,val in config.items():
                 globals()[key] = val
@@ -92,7 +91,7 @@ def buildPidgey():
         posts = []
         for note in glob(path.join(content_path,"note","*.md")):
             yaml_lines, ym, md = [],'',''
-            with open(note) as infile:
+            with open(note,encoding='utf8', errors='ignore') as infile:
                 for s in infile:
                     if s.startswith('---'):
                         for s in infile:
@@ -118,7 +117,7 @@ def buildPidgey():
         create_page(home_template,None,readmd(home_md),"index.html")
         create_page(feed_template,None,readmd(home_md),"rss.xml")
 
-    except:
+    except Exception as e:
         print("while building pidgey, some issue occured.")
         print("This can be due to \n\t1. Not a pidgey directory. \n\t2. Unknown file structure")
 

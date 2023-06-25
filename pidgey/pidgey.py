@@ -7,8 +7,8 @@
 #       ██║╚██╗██║██║██╔══██║██╔══██║██╔══██╗╚════██║
 #       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
 #       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
-#       DRAFTED BY [https://nihar.page] ON 10-04-2021.
-#       SOURCE [pidgey.py] LAST MODIFIED ON 20-04-2021.
+#       DRAFTED BY [https://nih.ar] ON 10-04-2021.
+#       SOURCE [pidgey.py] LAST MODIFIED ON 20-06-2023.
 #
 
 # External imports

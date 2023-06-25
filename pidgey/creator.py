@@ -7,8 +7,8 @@
 #       ██║╚██╗██║██║██╔══██║██╔══██║██╔══██╗╚════██║
 #       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
 #       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
-#       DRAFTED BY [https://nihar.page] ON 18-04-2021.
-#       SOURCE [creator.py] LAST MODIFIED ON 08-05-2021.
+#       DRAFTED BY [https://nih.ar] ON 18-04-2021.
+#       SOURCE [creator.py] LAST MODIFIED ON 25-06-2023.
 #
 
 
