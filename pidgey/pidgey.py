@@ -1,3 +1,5 @@
+#!/bin/python
+
 #
 #       ███╗   ██╗██╗██╗  ██╗ █████╗ ██████╗ ███████╗
 #       ████╗  ██║██║██║  ██║██╔══██╗██╔══██╗██╔════╝
@@ -6,8 +8,9 @@
 #       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
 #       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
 #       DRAFTED BY [https://nih.ar] ON 14-04-2025
-#       SOURCE [pidgey.py] LAST MODIFIED ON 14-04-2025.
+#       SOURCE [pidgey.py] LAST MODIFIED ON 15-04-2025.
 #
+
 from argparse import ArgumentParser
 from pidgey import __version__, creator, builder, server
 from rich.console import Console

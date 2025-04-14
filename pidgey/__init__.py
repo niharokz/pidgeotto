@@ -1,3 +1,5 @@
+#!/bin/python
+
 #
 #       ███╗   ██╗██╗██╗  ██╗ █████╗ ██████╗ ███████╗
 #       ████╗  ██║██║██║  ██║██╔══██╗██╔══██╗██╔════╝
@@ -9,7 +11,7 @@
 #       SOURCE [__init__.py] LAST MODIFIED ON 14-04-2025.
 #
 
-__version__ = "0.0.9"
+__version__ = "0.9.9"
 
 def get_version():
     return __version__

@@ -8,7 +8,7 @@
 #       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
 #       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
 #       DRAFTED BY [https://nih.ar] ON 18-04-2021.
-#       SOURCE [creator.py] LAST MODIFIED ON 14-04-2025.
+#       SOURCE [creator.py] LAST MODIFIED ON 15-04-2025.
 #
 
 from os import mkdir, path, makedirs
@@ -207,7 +207,7 @@ def createContent(pidgeyName):
         safe_create_directory(note_dir)
 
         # Now using the createNote function to generate a sample note
-        createNote("blog1.md",pidgeyName)
+        createNote("notepage1.md",pidgeyName)
 
     except Exception as e:
         log_message(f"Error creating content: {e}", "error")
@@ -227,7 +227,7 @@ def createNote(noteName,pidgeyName='', showInHome=True):
         with open(path.join(note_dir, noteName), 'w') as f:
             conf_data = (
                 """---
-title: "Sample Blog."
+title: "Sample Note Page."
 subtitle: "Sample subtitle"
 date: {t}
 showInHome: {s}

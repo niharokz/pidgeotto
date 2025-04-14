@@ -1,7 +1,7 @@
 # Pidgeotto
 
 ## Description
-Pidgeotto is a minimal, fast, and JavaScript-free static site generator — built for developers who love Markdown, speed, and simplicity.
+Pidgeotto is a minimal, fast, and JavaScript-free static site generator : built for developers who love Markdown, speed, and simplicity.
 
 ### Why choose Pidgeotto?
 1. No JavaScript by default.
@@ -22,10 +22,10 @@ pip install git+https://github.com/niharokz/pidgeotto
 
 ## Prerequisites
 Pidgeotto installs the following dependencies automatically:
-- `pyyaml` — for configuration files and frontmatter parsing
-- `jinja2` — templating engine
-- `markdown2` — for Markdown to HTML conversion
-- `rich` — for better CLI display (colorful output)
+- `pyyaml` : for configuration files and frontmatter parsing
+- `jinja2` : templating engine
+- `markdown2` : for Markdown to HTML conversion
+- `rich` : for better CLI display (colorful output)
 
 ## Basic Usage
 
@@ -120,8 +120,7 @@ Visit a live site generated using Pidgeotto:
 
 ## Changelog
 
-### v1.0.0 – Stable Release
-- Pretty URLs supported (/note/a/index.html)
+### v0.9.9 : Beta Release
 - Custom ports for dev server (pidgey serve -port 2222)
 - Server auto-handles /abc → /abc.html
 - Skips notes with missing frontmatter
