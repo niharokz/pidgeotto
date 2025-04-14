@@ -1,107 +1,136 @@
-# pidgeotto
+# Pidgeotto
 
 ## Description
-Yet another static website generator. 
+Pidgeotto is a minimal, fast, and JavaScript-free static site generator — built for developers who love Markdown, speed, and simplicity.
 
-Why choose pidgeotto?
-1. Free of javascript.
-2. Extensible, flexible, forkable.
-3. Minimal and fast.
-4. Free under MIT License.
+### Why choose Pidgeotto?
+1. No JavaScript by default.
+2. Clean, forkable Python code.
+3. Flexible templating with Jinja2.
+4. Fast, Markdown-first workflow.
+5. Fully open-source under the MIT License.
 
 ## Installation
-``` pip install pidgeotto ```
+```
+pip install pidgeotto
+```
 
-$ pip install git+https://github.com/niharokz/pidgeotto
+Or install the latest version directly from GitHub:
+```
+pip install git+https://github.com/niharokz/pidgeotto
+```
 
 ## Prerequisites
-By default, pidgeotto will install the below packages from PyPI pip
-``` pyyaml, jinja2, markdown2 ```
-* PyYAML:	To consume the config file and header of blog posts.
-* jinja2:	Templating engine
-* markdown2:	To convert markdown to HTML
+Pidgeotto installs the following dependencies automatically:
+- `pyyaml` — for configuration files and frontmatter parsing
+- `jinja2` — templating engine
+- `markdown2` — for Markdown to HTML conversion
+- `rich` — for better CLI display (colorful output)
 
-## Usage:
-```console
-$ pidgey init project
+## Basic Usage
+
+### 1. Initialize a new site
 ```
-To initiate pidgeotto with name "project"
-
-```console
-$ pidgey new pageName
+pidgey init project
 ```
-To create new page/post/note with name "pageName"
+Creates the required folder structure and template files under `project/`.
 
-```console
-$ pidgey build pageName
+### 2. Create a new note/page
 ```
-To build static pages and keep those in the "public" directory.
+pidgey new pageName
+```
+Generates a new Markdown file under `content/note/pageName.md`.
 
-## Extra Functionalaties
-1. showInHome tag is present in each note markdown.
-        ``` showInHome: True ``` 
-        will create page which are blog/note post.
-        
-        ``` showInHome: False ``` 
-        will create page which are pages.
+### 3. Build the site
+```
+pidgey build
+```
+Renders all markdown into HTML and places them under the `public/` directory.
 
-2. config.yml is extensible. 
-        For example, if you want to add favicon.ico. Keep favicon in the resource folder.
-        ``` favicon: resource/favicon.ico ``` 
-        in config.yml
-        In template, add {{ config.get('favicon') }}.
+### 4. Serve the site locally
+```
+pidgey serve
+```
+Launches a local server on http://localhost:5555
 
-3. Extra metadata per page.
-        If you want to add some metadata to your page, it can be done using the below command on the markdown page.
-        ``` meta : '<link rel="stylesheet" type="text/css" href="/extra.css" /> ```
+Serve on a custom port:
+```
+pidgey serve -port 2222
+```
 
+## Extra Features
 
-## Structure
+### 1. Page Visibility on Homepage
+Each note can control visibility on the homepage with:
+```
+showInHome: true    # default, shown on home page
+showInHome: false   # hidden from home page, useful for static pages like "About"
+```
 
-    pidgeotto_project
-    ├── public
-    ├── config.yml
-    ├── content
-    │   ├── header.md
-    │   ├── footer.md
-    │   ├── home.md
-    │   ├── archive.md
-    │   └── note
-    │       └── other_pages.md
-    ├── resource
-    └── templates
-        ├── home_template.html
-        ├── note_template.html
-        └── rss_template.xml
+### 2. Extend config.yml with custom keys
+You can extend `config.yml` to include custom fields like favicon:
+```
+favicon: resource/favicon.ico
+```
+Use it in your HTML template:
+```
+{{ config.get('favicon') }}
+```
 
-* config.yml:	To configure the title, name, CSS file, js file, and other configurations.
-* resource:	Location to store all CSS, js, image data and other static content.
-* content:	All markdown files are stored here.
-* template:	Layouts for different HTML pages are kept here.
-* public: All generated static files. It can be changed in config.yml
+### 3. Custom Metadata in Notes
+Add metadata per note:
+```
+meta: '<link rel="stylesheet" href="/extra.css">'
+```
+Use it in your HTML template:
+```
+{{ meta }}
+```
+
+## Folder Structure
+
+```lua
+pidgeotto_project/
+|-- public/
+|-- config.yml
+|-- content/
+|   |-- header.md
+|   |-- footer.md
+|   |-- home.md
+|   `-- note/
+|       `-- sample.md
+|-- resource/
+|   `-- style.css
+`-- templates/
+    |-- home_template.html
+    |-- note_template.html
+    `-- rss_template.xml
+
+```
+
+- `config.yml`: site-wide configuration (title, paths, theme, etc.)
+- `resource/`: static assets like CSS, images, and favicon
+- `content/`: Markdown content (header, footer, notes)
+- `templates/`: Jinja2 templates for rendering HTML
+- `public/`: generated output folder (can be changed in config)
 
 ## Example
+Visit a live site generated using Pidgeotto:  
+[https://nih.ar](https://nih.ar)
 
-Below are examples of sites running via pidgeotto.
-1. [nih.ar](https://nih.ar)
+## Changelog
 
+### v1.0.0 – Stable Release
+- Pretty URLs supported (/note/a/index.html)
+- Custom ports for dev server (pidgey serve -port 2222)
+- Server auto-handles /abc → /abc.html
+- Skips notes with missing frontmatter
+- Homepage listing respects `showInHome`
+- Global error handling improvements
+- Color-coded CLI output with Rich
+- Windows compatibility
+- Markdown metadata injection via meta tag
+- Improved project structure and modular codebase
 
-## TODO
-
-* (A) 08-05-2021 Clean up some clutter coding
-
-## Update
-
-### 0.0.3
-
-* Server Functionality added
-* Automatic .md extension
-* Error/Exception handled
-
-### 0.0.4
-
-* Cleanup
-
-### 0.0.5
-
-* Windows support added
+## License
+MIT License
