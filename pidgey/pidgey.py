@@ -8,7 +8,7 @@
 #       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
 #       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
 #       DRAFTED BY [https://nih.ar] ON 14-04-2025
-#       SOURCE [pidgey.py] LAST MODIFIED ON 15-04-2025.
+#       SOURCE [pidgey.py] LAST MODIFIED ON 25-04-2025.
 #
 
 from argparse import ArgumentParser
@@ -16,10 +16,10 @@ from pidgey import __version__, creator, builder, server
 from rich.console import Console
 from rich.prompt import Prompt
 from os import path
+import sys
 
 console = Console()
 
-# Function to print success, error, and info messages using rich
 def print_success(message):
     console.print(message, style="bold green")
 
@@ -30,70 +30,71 @@ def print_info(message):
     console.print(message, style="yellow")
 
 def main():
-    parser = ArgumentParser(prog='pidgey', description='A simple static site generator for your blog or personal website.')
-    parser.add_argument("-v", "--version", action="version", version=f"v{__version__}")
-    
-    subparsers = parser.add_subparsers(dest='type', help='Command help', required=True)
-    
+    parser = ArgumentParser(
+        prog='pidgey',
+        description='🕊️ Pidgeotto: A minimal, Markdown-first static site generator.'
+    )
+    parser.add_argument("-v", "--version", action="version", version=f"Pidgeotto v{__version__}")
+
+    subparsers = parser.add_subparsers(dest='type', help='Available commands', required=True)
+
     # Init command
     parser_init = subparsers.add_parser('init', help='Initialize a new Pidgeotto project.')
-    parser_init.add_argument("name", help="The name of your project directory.")
-    
-    # New command (simplified, no type flag)
-    parser_new = subparsers.add_parser('new', help='Create a new note or post.')
-    parser_new.add_argument("name", help="Enter the name for your new note/post.")
+    parser_init.add_argument("name", help="Name of your project directory")
+
+    # New command
+    parser_new = subparsers.add_parser('new', help='Create a new note or blog post.')
+    parser_new.add_argument("name", help="Filename for your new Markdown note/post")
 
     # Build command
-    parser_build = subparsers.add_parser('build', help='Build the Pidgeotto site.')
+    subparsers.add_parser('build', help='Convert Markdown files into static HTML')
 
     # Serve command
-    parser_serve = subparsers.add_parser('serve', help='Serve your site locally.')
+    subparsers.add_parser('serve', help='Serve your site locally at http://localhost:5555')
 
     args = parser.parse_args()
-    
-    if args.type == "init" and args.name:
-        try:
-            print_info(f"Initializing your Pidgeotto project... {args.name} 🎉")
+
+    try:
+        if args.type == "init" and args.name:
+            print_info(f"📁 Initializing project: {args.name}")
             creator.createPidgey(args.name)
-            print_success(f"Your project '{args.name}' has been successfully initialized! Let's start creating content.")
-        except Exception as e:
-            print_error(f"Oops! Something went wrong while initializing your project. Error: {e}")
-    
-    elif args.type == "new" and args.name:
-        try:
-            # Check if the note/post already exists
+            print_success(f"✅ Project '{args.name}' created! Start writing in `content/note/`.")
+            sys.exit(0)
+
+        elif args.type == "new" and args.name:
             if path.exists(args.name):
-                # Ask user if they want to overwrite
-                overwrite = Prompt.ask(f"The file '{args.name}' already exists. Do you want to overwrite it?", choices=["y", "n"], default="n")
-                if overwrite.lower() == "n":
-                    print_info(f"Cancelled creating the note/post '{args.name}'.")
-                    return
-            
-            print_info(f"Creating a new note/post with the name '{args.name}'...")
+                overwrite = Prompt.ask(
+                    f"⚠️ The file '{args.name}' already exists. Overwrite?",
+                    choices=["y", "n"], default="n"
+                )
+                if overwrite.lower() != "y":
+                    print_info("⛔ Note creation cancelled.")
+                    sys.exit(0)
+
+            print_info(f"📝 Creating new note: {args.name}")
             creator.createNote(args.name)
-            print_success(f"Your note/post '{args.name}' was successfully created! Time to add some content to it.")
-        except Exception as e:
-            print_error(f"Uh-oh! There was an issue creating your note/post. Error: {e}")
-        
-    elif args.type == 'build':
-        try:
-            print_info("Building your static site. Please wait while we generate the pages...")
+            print_success(f"✅ Note '{args.name}' created successfully.")
+            sys.exit(0)
+
+        elif args.type == 'build':
+            print_info("🔧 Building your static site...")
             builder.buildPidgey()
-            print_success("Your site has been successfully built! You can now check it out.")
-        except Exception as e:
-            print_error(f"Something went wrong while building your site. Error: {e}")
-    
-    elif args.type == 'serve':
-        try:
-            print_info("Starting the server to serve your site locally...")
-            server.server()  # Assuming server.py handles the rest
-            print_success("Your site is now being served locally! Visit the URL to preview.")
-        except Exception as e:
-            print_error(f"Error while serving your site. Please try again. Error: {e}")
-    
-    else:
-        print_error("Oops! It seems like you entered an invalid command or missing arguments.")
-        parser.print_help()
+            print_success("✅ Site build complete! Check the `public/` folder.")
+            sys.exit(0)
+
+        elif args.type == 'serve':
+            print_info("🚀 Serving site locally at http://localhost:5555 ...")
+            server.server()
+            sys.exit(0)
+
+        else:
+            print_error("❌ Invalid command or missing arguments.")
+            parser.print_help()
+            sys.exit(1)
+
+    except Exception as e:
+        print_error(f"🔥 An error occurred: {e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

@@ -108,7 +108,7 @@ home_template_content = """
 {{ article }}
 <ul>
 {% for post in posts %}
-  {% if (post.showInHome is undefined) or post.showInHome %}
+  {% if "note" in post.tags %}
     <li>{{ post.date.strftime('%d %m %Y') }} ; <a href="{{ post.url }}">{{ post.title | lower }}</a></li>
   {% endif %}
 {% endfor %}
@@ -171,15 +171,15 @@ feed_template_content = """
       <height>32</height>
     </image>
     {% for post in posts %}
-      {% if (post.showInHome is undefined) or post.showInHome %}
-        <item>
-          <title>{{ post.title }}</title>
-          <link>{{ config.get('url') }}{{ post.url }}</link>
-          <pubDate>{{ post.date.strftime('%a, %d %b %Y %H:%M:%S GMT') }}</pubDate>
-          <guid isPermaLink="false">{{ config.get('url') }}{{ post.url }}</guid>
-          <description><![CDATA[{{ post.subtitle }} - {{ post.note }} ]]></description>
-        </item>
-      {% endif %}
+        {% if "note" in post.tags %}
+            <item>
+            <title>{{ post.title }}</title>
+            <link>{{ config.get('url') }}{{ post.url }}</link>
+            <pubDate>{{ post.date.strftime('%a, %d %b %Y %H:%M:%S GMT') }}</pubDate>
+            <guid isPermaLink="false">{{ config.get('url') }}{{ post.url }}</guid>
+            <description><![CDATA[{{ post.subtitle }} - {{ post.note }} ]]></description>
+            </item>
+        {% endif %}
     {% endfor %}
   </channel>
 </rss>
@@ -213,10 +213,10 @@ def createContent(pidgeyName):
         log_message(f"Error creating content: {e}", "error")
 
 # Create a note
-def createNote(noteName,pidgeyName='', showInHome=True):
+def createNote(noteName, pidgeyName=''):
     try:
         note_dir = path.join(pidgeyName, 'content', 'note')
-        
+
         # Ensure the directory exists
         if not path.exists(note_dir):
             makedirs(note_dir)
@@ -230,7 +230,7 @@ def createNote(noteName,pidgeyName='', showInHome=True):
 title: "Sample Note Page."
 subtitle: "Sample subtitle"
 date: {t}
-showInHome: {s}
+tags: [note,generic]
 ---
 
 # This is a sample note page which can be edited/renamed at /content/note/{noteName}
@@ -259,13 +259,13 @@ showInHome: {s}
 [link](/)
 
 Sample paragraph is written like this with lorem ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                """).format(t=datetime.now().strftime("%Y-%m-%d"), s=showInHome, noteName=noteName)
+                """).format(t=datetime.now().strftime("%Y-%m-%d"), noteName=noteName)
 
             f.write(conf_data)
-            print(f"{noteName} is created at {path.join(note_dir, noteName)}")
+            log_message(f"{noteName} is created at {path.join(note_dir, noteName)}", "success")
 
     except Exception as e:
-        print(f"While generating page {noteName}, some issue occurred: {e}")
+        log_message(f"While generating page {noteName}, some issue occurred: {e}", "error")
 
 # Main initializer
 def createPidgey(pidgeyName):
