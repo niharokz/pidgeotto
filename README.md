@@ -2,7 +2,8 @@
 # Rynz
 
 🕊️ **Rynz: Really Your Note Zenerator**  
-Rynz is a lightweight, JavaScript-free static site generator crafted for developers who value Markdown, speed, and simplicity. Built with Python and Jinja2, it delivers fast, customizable static websites with an intuitive CLI, optimized page generation, and clean, minimal templates.
+Rynz is a lightweight, JavaScript-free static site generator crafted for developers who value Markdown, speed, and simplicity. Built with Python and Jinja2, it delivers fast, customizable static websites with an intuitive CLI, optimized page generation, and clean, minimal templates. The main website for the Rynz project is [https://rynz.de](https://rynz.de).
+
 
 ## Why Choose Rynz?
 - **Blazing Fast**: Optimized page generation for rapid site builds.
@@ -241,6 +242,7 @@ Use in templates:
 
 Explore a live Rynz-generated site:  
 [https://nih.ar](https://nih.ar)
+[https://rynz.de](https://rynz.de)
 
 View its source:  
 [https://gitlab.com/niharokz/nih.ar](https://gitlab.com/niharokz/nih.ar)

@@ -8,7 +8,7 @@
 #       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
 #       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
 #       DRAFTED BY [https://nih.ar] ON 28-04-2025
-#       SOURCE [rynz.py] LAST MODIFIED ON 28-04-2025.
+#       SOURCE [rynz.py] LAST MODIFIED ON 29-04-2025.
 #
 
 """

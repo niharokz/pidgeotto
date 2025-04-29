@@ -1,0 +1,20 @@
+image: python:3.10
+
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  script:
+    - pip install build twine requests
+    - python -m build
+    - >
+      python -c "
+      import requests, sys, pathlib;
+      version = pathlib.Path('rynz/__init__.py').read_text().split('__version__ = ')[1].split('\"')[1];
+      res = requests.get(f'https://pypi.org/pypi/rynz/json');
+      if version in res.json()['releases']:
+          print(f'Version {version} already exists on PyPI. Skipping upload.');
+          sys.exit(0)"
+    - twine upload dist/* -u __token__ -p $PYPI_TOKEN
+  environment: production

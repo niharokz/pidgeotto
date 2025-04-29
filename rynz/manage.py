@@ -8,7 +8,7 @@
 #       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
 #       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
 #       DRAFTED BY [https://nih.ar] ON 08-05-2021.
-#       SOURCE [manage.py] LAST MODIFIED ON 28-04-2025.
+#       SOURCE [manage.py] LAST MODIFIED ON 29-04-2025.
 #
 
 from os import path, chdir

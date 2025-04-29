@@ -6,7 +6,7 @@
 #       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
 #       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
 #       DRAFTED BY [https://nih.ar] ON 28-04-2025
-#       SOURCE [setup.py] LAST MODIFIED ON 28-04-2025.
+#       SOURCE [setup.py] LAST MODIFIED ON 29-04-2025.
 #
 
 from setuptools import setup
