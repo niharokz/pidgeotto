@@ -14,43 +14,106 @@
 from os import mkdir, path, makedirs
 from datetime import datetime
 import sys
+from rich.console import Console
 
-# Enhanced logging function with timestamp
-def log_message(message, level="info"):
-    levels = {"info": "[INFO]", "success": "[SUCCESS]", "error": "[ERROR]"}
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print(f"{timestamp} {levels.get(level, '[INFO]')} {message}")
+# Initialize console for colorful output
+console = Console()
 
-# User input helper with optional validation
+
+def print_message(message, style="info", timestamp=False):
+    """
+    Prints a styled message using the Rich console.
+
+    Args:
+        message (str): The message to display.
+        style (str): Message style ("success", "error", or "info").
+        timestamp (bool): Whether to include a timestamp in the message.
+    """
+    styles = {
+        "success": "bold green",
+        "error": "bold red",
+        "info": "yellow"
+    }
+    if timestamp:
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        message = f"[{current_time}] {message}"
+    console.print(message, style=styles.get(style, "yellow"))
+
+
 def get_input(prompt, default_value, validator=None):
+    """
+    Prompts user for input with an optional default and validator.
+
+    Args:
+        prompt (str): The input prompt.
+        default_value (str): Default input value if the user provides none.
+        validator (callable): A function to validate input (optional).
+
+    Returns:
+        str: The validated user input.
+    """
     while True:
         user_input = input(prompt).strip() or default_value
         if validator and not validator(user_input):
-            log_message("Invalid input. Please try again.", "error")
+            print_message(
+                "Invalid input. Please try again.", "error", timestamp=True
+            )
         else:
             return user_input
 
+
 def is_valid_url(url):
-    return "." in url  # Very basic domain check
+    """
+    Checks if the given string contains a basic valid domain structure.
+
+    Args:
+        url (str): The URL string to validate.
+
+    Returns:
+        bool: True if the URL is valid, False otherwise.
+    """
+    return "." in url
+
 
 def safe_create_directory(directory):
+    """
+    Safely creates a directory if it doesn't already exist.
+
+    Args:
+        directory (str): Path to the directory to create.
+
+    Exits:
+        On failure to create the directory.
+    """
     try:
         if not path.exists(directory):
             makedirs(directory)
-            log_message(f"Created directory: {directory}", "success")
+            print_message(
+                f"Created directory: {directory}", "success", timestamp=True
+            )
         else:
-            log_message(f"Directory already exists: {directory}", "info")
+            print_message(
+                f"Directory already exists: {directory}", "info", timestamp=True
+            )
     except Exception as e:
-        log_message(f"Error creating directory {directory}: {e}", "error")
+        print_message(
+            f"❌ Error creating directory {directory}: {e}", "error", timestamp=True
+        )
         sys.exit(1)
 
-# Create config.yml
-def createConfig(pidgeyName):
+
+def createConfig(rynzName):
+    """
+    Creates the default configuration file `config.yml`.
+
+    Args:
+        rynzName (str): The name of the project directory.
+    """
     try:
-        with open(path.join(pidgeyName, 'config.yml'), 'w') as f:
-            title = pidgeyName
+        with open(path.join(rynzName, 'config.yml'), 'w') as f:
+            title = rynzName
             url = 'yourdomain.tld'
-            
+
             conf_data = f"""
 # Mandatory Configuration
 title: {title}
@@ -72,19 +135,33 @@ desc: Write anything that human and machine can understand.
 mail: some@mail.com
 """
             f.write(conf_data)
-            log_message("config.yml created.", "success")
+            print_message("config.yml created.", "success", timestamp=True)
     except Exception as e:
-        log_message(f"Error creating config.yml: {e}", "error")
+        print_message(
+            f"❌ Error creating config.yml: {e}", "error", timestamp=True
+        )
 
-# Template creators
-def createTemplate(pidgeyName, template_type, file_content):
+
+def createTemplate(rynzName, template_type, file_content):
+    """
+    Creates a template file with the provided content.
+
+    Args:
+        rynzName (str): The name of the project directory.
+        template_type (str): The name of the template file.
+        file_content (str): The content to write to the template file.
+    """
     try:
-        template_file_path = path.join(pidgeyName, 'template', template_type)
+        template_file_path = path.join(rynzName, 'template', template_type)
         with open(template_file_path, 'w') as f:
             f.write(file_content)
-            log_message(f"{template_type} created.", "success")
+            print_message(
+                f"{template_type} created.", "success", timestamp=True
+            )
     except Exception as e:
-        log_message(f"Error creating {template_type}: {e}", "error")
+        print_message(
+            f"❌ Error creating {template_type}: {e}", "error", timestamp=True
+        )
 
 # Template: Home Page
 home_template_content = """
@@ -185,37 +262,60 @@ feed_template_content = """
 </rss>
 """
 
-# Create content/header/footer/note
-def createContent(pidgeyName):
+# Create content/header/footer/note   
+def createContent(rynzName):
+    """
+    Creates initial content, including `header.md`, `footer.md`, and `home.md`.
+
+    Args:
+        rynzName (str): The name of the project directory.
+    """
     try:
-        safe_create_directory(path.join(pidgeyName, 'content', 'note'))
+        safe_create_directory(path.join(rynzName, 'content', 'note'))
 
-        with open(path.join(pidgeyName, 'content', 'header.md'), 'w') as f:
-            f.write("*   [Home](/)\n*   [Other Links](/)\n*   [Edit content/header.md](/)")
-            log_message("header.md created.", "success")
+        with open(path.join(rynzName, 'content', 'header.md'), 'w') as f:
+            f.write(
+                "*   [Home](/)\n*   [Other Links](/)\n"
+                "*   [Edit content/header.md](/)"
+            )
+            print_message("header.md created.", "success", timestamp=True)
 
-        with open(path.join(pidgeyName, 'content', 'footer.md'), 'w') as f:
-            f.write("*   [Home](/)\n*   [RSS](/)\n*   [Edit content/footer.md](/)\n*   powered by [Pidgeotto](/)")
-            log_message("footer.md created.", "success")
+        with open(path.join(rynzName, 'content', 'footer.md'), 'w') as f:
+            f.write(
+                "*   [Home](/)\n*   [RSS](/)\n"
+                "*   [Edit content/footer.md](/)\n"
+                "*   powered by [Rynz](https://rynz.de)"
+            )
+            print_message("footer.md created.", "success", timestamp=True)
 
-        with open(path.join(pidgeyName, 'content', 'home.md'), 'w') as f:
-            f.write("Welcome to Pidgeotto.\nThis is a sample homepage which can be edited at /content/home.md")
-            log_message("home.md created.", "success")
+        with open(path.join(rynzName, 'content', 'home.md'), 'w') as f:
+            f.write(
+                "Welcome to Rynz.\nThis is a sample homepage which can be "
+                "edited at /content/home.md"
+            )
+            print_message("home.md created.", "success", timestamp=True)
 
         # Ensure the note directory exists before calling createNote
-        note_dir = path.join(pidgeyName, 'content', 'note')
+        note_dir = path.join(rynzName, 'content', 'note')
         safe_create_directory(note_dir)
 
-        # Now using the createNote function to generate a sample note
-        createNote("notepage1.md",pidgeyName)
+        # Generate a sample note
+        createNote("notepage1.md", rynzName)
 
     except Exception as e:
-        log_message(f"Error creating content: {e}", "error")
+        print_message(f"❌ Error creating content: {e}", "error", timestamp=True)
+        
 
-# Create a note
-def createNote(noteName, pidgeyName=''):
+def createNote(noteName, rynzName=''):
+    """
+    Creates a markdown note file with sample content.
+
+    Args:
+        noteName (str): Name of the note file to create.
+        rynzName (str): Parent directory for the note file. Defaults to ''.
+    """
     try:
-        note_dir = path.join(pidgeyName, 'content', 'note')
+        note_dir = path.join(rynzName, 'content', 'note')
 
         # Ensure the directory exists
         if not path.exists(note_dir):
@@ -259,31 +359,52 @@ tags: [note,generic]
 [link](/)
 
 Sample paragraph is written like this with lorem ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                """).format(t=datetime.now().strftime("%Y-%m-%d"), noteName=noteName)
+
+            """).format(t=datetime.now().strftime("%Y-%m-%d"), noteName=noteName)
 
             f.write(conf_data)
-            log_message(f"{noteName} is created at {path.join(note_dir, noteName)}", "success")
+            print_message(
+                f"{noteName} is created at {path.join(note_dir, noteName)}",
+                "success",
+                timestamp=True
+            )
 
     except Exception as e:
-        log_message(f"While generating page {noteName}, some issue occurred: {e}", "error")
+        print_message(
+            f"While generating page {noteName}, some issue occurred: {e}",
+            "error",
+            timestamp=True
+        )
 
-# Main initializer
-def createPidgey(pidgeyName):
+
+def createRynz(rynzName):
+    """
+    Initializes a Rynz project with all necessary directories and files.
+
+    Args:
+        rynzName (str): The name of the project directory.
+    """
     try:
-        safe_create_directory(pidgeyName)
-        safe_create_directory(path.join(pidgeyName, 'template'))
-        safe_create_directory(path.join(pidgeyName, 'static'))
-        safe_create_directory(path.join(pidgeyName, 'content'))
-        safe_create_directory(path.join(pidgeyName, 'content', 'note'))
+        safe_create_directory(rynzName)
+        safe_create_directory(path.join(rynzName, 'template'))
+        safe_create_directory(path.join(rynzName, 'static'))
+        safe_create_directory(path.join(rynzName, 'content'))
+        safe_create_directory(path.join(rynzName, 'content', 'note'))
 
-        createConfig(pidgeyName)
-        createTemplate(pidgeyName, 'home_template.html', home_template_content)
-        createTemplate(pidgeyName, 'note_template.html', note_template_content)
-        createTemplate(pidgeyName, 'feed_template.xml', feed_template_content)
-        createContent(pidgeyName)
+        createConfig(rynzName)
+        createTemplate(rynzName, 'home_template.html', home_template_content)
+        createTemplate(rynzName, 'note_template.html', note_template_content)
+        createTemplate(rynzName, 'feed_template.xml', feed_template_content)
+        createContent(rynzName)
 
-        log_message(f"Pidgey project {pidgeyName} created successfully!", "success")
+        print_message(
+            f"Rynz project {rynzName} created successfully!", "success",
+            timestamp=True
+        )
 
     except Exception as e:
-        log_message(f"Error creating Pidgey project {pidgeyName}: {e}", "error")
+        print_message(
+            f"❌ Error creating Rynz project {rynzName}: {e}", "error",
+            timestamp=True
+        )
         sys.exit(1)

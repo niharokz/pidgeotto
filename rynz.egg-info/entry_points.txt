@@ -1,0 +1,2 @@
+[console_scripts]
+rynz = rynz.rynz:main

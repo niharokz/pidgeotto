@@ -5,27 +5,27 @@
 #       ██║╚██╗██║██║██╔══██║██╔══██║██╔══██╗╚════██║
 #       ██║ ╚████║██║██║  ██║██║  ██║██║  ██║███████║
 #       ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
-#       DRAFTED BY [https://nih.ar] ON 25-04-2025
-#       SOURCE [setup.py] LAST MODIFIED ON 25-04-2025.
+#       DRAFTED BY [https://nih.ar] ON 28-04-2025
+#       SOURCE [setup.py] LAST MODIFIED ON 28-04-2025.
 #
 
 from setuptools import setup
-from pidgey import __version__
+from rynz import __version__
 
-with open('README.md') as desc:
+with open('README.md', encoding='utf-8') as desc:
     desc_md = desc.read()
 
 setup(
-    name='pidgeotto',
+    name='rynz',
     version=__version__,
     description='A minimal, fast static site generator built for Markdown lovers.',
     long_description=desc_md,
     long_description_content_type='text/markdown',
     author='Nihar',
     author_email='hi@nihars.com', 
-    url='https://gitlab.com/niharokz/pidgeotto',
+    url='https://gitlab.com/niharokz/rynz',
     license='MIT',
-    packages=['pidgey'],
+    packages=['rynz'],
     install_requires=[
         'markdown2', 'Jinja2', 'pyyaml', 'rich',
     ],
@@ -43,7 +43,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'pidgey = pidgey.pidgey:main',
+            'rynz = rynz.rynz:main',
         ],
     },
 )
